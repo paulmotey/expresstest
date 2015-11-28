@@ -6,3 +6,5 @@ This really isn't C at all, but I like the fact that it highlights FIXME in the 
 3. Odd way that CSS works with file upload works differently in Kong and Firefox and button is located poorly
 	something from the standard handlebars library that is odd .
 	
+4. error.handlebars missing
+
