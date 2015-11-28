@@ -1,0 +1,1 @@
+<br />Formatted text with markup.<br />And <a href="http://localhost:3002/">Home</a><font color="#ff0000">&lt;&lt;Link to HOME there.</font></a><br />Then normal color afterwards.<br />Formatted text TWICE with markup.<br />And <a href="http://localhost:3002/">Home</a><font color="#ff0000">&lt;&lt;Link to HOME there.</font></a><br />Then normal color afterwards.

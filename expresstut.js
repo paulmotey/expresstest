@@ -237,7 +237,13 @@ app.get('/writefile', function(req, res, next){
   // If the file doesn't exist it is created and then you add
   // the text provided in the 2nd parameter
   fs.writeFile('./public/randomfile2.txt',
-    'More random text', function (err) {
+    '<br />Formatted text with markup.<br />And <a href="http://localhost:3002/">Home</a><font color="#ff0000">&lt;&lt;Link to HOME there.</font></a><br />Then normal color afterwards.', function (err) {
+   if (err) {
+       return console.error(err);
+    }
+  });
+  fs.appendFile('./public/randomfile2.txt',
+    '<br />Formatted text TWICE with markup.<br />And <a href="http://localhost:3002/">Home</a><font color="#ff0000">&lt;&lt;Link to HOME there.</font></a><br />Then normal color afterwards.', function (err) {
    if (err) {
        return console.error(err);
     }
