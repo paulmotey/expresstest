@@ -3,6 +3,10 @@
  * As it travela through the pipeline perform needed actions using middleware functions.
  * If a response is valid display the correct view and if not handle errors.
  */
+/* 
+ * When ths is merged to html5 there will be a full application that allows users
+ */
+
 var express = require('express');
 var app = express();
 var mongodb = require('mongodb');
