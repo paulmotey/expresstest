@@ -1,0 +1,143 @@
+Usage documentation:
+
+GIT
+
+/*
+I have setup some things to allow shorthand of the git repository name.
+Also I have credentials and a key so I don't have to enter password every time.
+*/
+
+git remote add et git@github.com:paulmotey/expresstest.git
+git pull et master
+
+
+/*
+normally a push ( save to github ) would be:
+and the secret rune
+*/
+
+git add -A
+git commit -m "Describe the commit"
+git push et master
+
+
+RUN
+
+/*
+Running the program:
+In the main directory,
+*/
+
+node expresstut.js
+
+
+NODES
+/*
+node.js package manager "npm" usage:
+the save keeps reference in the package.json file
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "express": "4.13.3",
+    "express-handlebars": "^2.0.1",
+    "express-session": "^1.12.1",
+    "formidable": "^1.0.17",
+    "parseurl": "^1.3.0"
+}
+for example:
+packages used for this application
+*/
+sudo npm install --save body-parser
+sudo npm install --save cookie-parser
+sudo npm install --save express
+sudo npm install --save express-handlebars
+sudo npm install --save express-session
+sudo npm install --save formidable
+sudo npm install --save parseurl
+
+MONGODB
+
+/*
+MongoDB shell version: 2.6.3
+
+command line tools
+mongoDB has a command history
+
+db.test_collection.find()
+
+To clear the database (EVIL)
+use [database];
+db.dropDatabase();
+
+*/
+sudo apt-get install mongodb-server
+sudo npm install mongodb -g
+
+mongo
+mongoDB shell version: 2.6.3
+connecting to: test
+
+Server has startup warnings: 
+2015-11-26T22:59:24.728-0600 [initandlisten] 
+2015-11-26T22:59:24.728-0600 [initandlisten] ** NOTE: This is a 32 bit MongoDB binary.
+2015-11-26T22:59:24.728-0600 [initandlisten] **       32 bit builds are limited to less than 2GB of data (or less with --journal).
+2015-11-26T22:59:24.728-0600 [initandlisten] **       See http://dochub.mongodb.org/core/32bit
+2015-11-26T22:59:24.728-0600 [initandlisten] 
+---
+> db.test_collection.find()
+{ "_id" : ObjectId("565413de82e6ad99373d5c12"), "name" : "promise", "description" : "kept promises" }
+Type "it" for more
+> show dbs
+admin  (empty)
+local  0.078GB
+test   0.078GB
+---
+> show collections
+system.indexes
+test_collection
+
+
+ORDER OF APPLICATION
+now:
+fix main script to incorporate mongodb to save cookies and email and users for verify.
+can't find module mongodb
+sudo npm install --save mongodb
+-
+> kerberos@0.0.17 install /home/mo/Desktop/nfs/Express/node_modules/mongodb/node_modules/kerberos
+> (node-gyp rebuild) || (exit 0)
+make: Entering directory '/home/mo/Desktop/nfs/Express/node_modules/mongodb/node_modules/kerberos/build'
+  CXX(target) Release/obj.target/kerberos/lib/kerberos.o
+  CXX(target) Release/obj.target/kerberos/lib/worker.o
+  CC(target) Release/obj.target/kerberos/lib/kerberosgss.o
+../lib/kerberosgss.c:36:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
+ #pragma clang diagnostic push
+ ^
+../lib/kerberosgss.c:37:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
+ #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+ ^
+../lib/kerberosgss.c: In function ‘authenticate_gss_client_wrap’:
+../lib/kerberosgss.c:362:19: warning: variable ‘server_conf_flags’ set but not used [-Wunused-but-set-variable]
+   char buf[4096], server_conf_flags;
+                   ^
+../lib/kerberosgss.c: At top level:
+../lib/kerberosgss.c:930:0: warning: ignoring #pragma clang diagnostic [-Wunknown-pragmas]
+ #pragma clang diagnostic pop
+ ^
+  CC(target) Release/obj.target/kerberos/lib/base64.o
+  CXX(target) Release/obj.target/kerberos/lib/kerberos_context.o
+  SOLINK_MODULE(target) Release/obj.target/kerberos.node
+  SOLINK_MODULE(target) Release/obj.target/kerberos.node: Finished
+  COPY Release/kerberos.node
+make: Leaving directory '/home/mo/Desktop/nfs/Express/node_modules/mongodb/node_modules/kerberos/build'
+mongodb@2.0.49 node_modules/mongodb
+├── es6-promise@2.1.1
+├── readable-stream@1.0.31 (inherits@2.0.1, isarray@0.0.1, string_decoder@0.10.31, core-util-is@1.0.2)
+├── kerberos@0.0.17 (nan@2.0.9)
+└── mongodb-core@1.2.24 (bson@0.4.19)
+
+/favicon.ico??
+app.use(express.favicon(__dirname + '/public/favicon.ico'));
+
+sudo npm install --save serve-favicon
+
+commit

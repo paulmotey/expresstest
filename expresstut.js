@@ -1,103 +1,220 @@
-// We will structure here a series of possible responses
-// depending on the URL requested. As we travel through
-// the pipeline we will perform needed actions using middleware
-// functions. If a response is valid we will display the
-// correct view and if not we will handle errors.
- 
-// This is our projects entry point. If you start the
-// server by typing node expresstut.js and then open the
-// browser at loclhost:3000 you'll get a 404 error if
-// you haven't defined any routes
-// Import the express module
+/*
+ * Here a series of possible responses depending on the URL requested. 
+ * As it travela through the pipeline perform needed actions using middleware functions.
+ * If a response is valid display the correct view and if not handle errors.
+ */
 var express = require('express');
- 
 var app = express();
- 
-// Block the header from containing information
-// about the server
+var mongodb = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
+
+// Block the header from containing information about the server
 app.disable('x-powered-by');
+
+// Fix the favicon stuff
+var favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+/*Adding some mongo stuff that needs to be integrated with cookies and users*/
+var myCollection;
+var db;
+var found;
+var special;
+var special2;
+function removeDocument(onRemove){
+    myCollection.findAndModify({name: "doduck"}, [], {remove:true}, function(err, object) {
+        if(err)
+            throw err;
+        console.log("document deleted");
+        onRemove();
+    });
+}
  
+function findDocument(onFinded){
+    var cursor = myCollection.find({"name" : "promise", "company.officialName" : "promises LTD" });
+    cursor.each(function(err, doc) {
+        if(err)
+            throw err;
+        if(doc==null)
+            return;
+ 
+        console.log("document find:");
+        console.log(doc.name);
+        found=doc.name;
+        special=doc.company.industries;
+        special2=doc.company.barf;
+        console.log(doc.company.employed);
+        onFinded();
+    });
+}
+ 
+function fieldComplexeUpdateDocument(onUpdate){
+    myCollection.update({name: "doduck"}, {$set: {company: {employed: 10, officialName: "doduck LTD", 
+       industries: ["it consulting", "passionate programming"]}}}, {w:1}, function(err) {
+        if(err)
+            throw err;
+        console.log('entry updated');
+        onUpdate();
+    });
+}
+ 
+function fieldUpdateDocument(onUpdate){
+    myCollection.update({name: "doduck"}, {$set: {industry: "France"}}, {w:1}, function(err) {
+        if(err)
+            throw err;
+        console.log('entry updated');
+        onUpdate();
+    });
+}
+ 
+function simpleUpdateDocument(onUpdate){
+    myCollection.update({name: "doduck"}, {name: "doduck", description: "prototype your idea"}, {w:1}, function(err) {
+    if(err)
+        throw err;
+        console.log('entry updated');
+        onUpdate();
+    });
+}
+ 
+function addDocument(onAdded){
+    myCollection.insert({name: "doduck", description: "learn more than everyone"}, function(err, result) {
+        if(err)
+            throw err;
+ 
+        console.log("entry saved");
+        onAdded();
+    });
+}
+function addDocumentStuff(onAdded, DocName,DocDescr){
+        if (arguments[1] != null) {
+           DocName=arguments[1];
+           console.log(DocName);
+        }else{
+           console.log('no argument 1');
+        };
+        if (arguments[2] != null) {
+           DocDescr=arguments[2];
+           console.log(DocName);
+        }else{
+           console.log('no argument 2');
+        };
+    myCollection.insert({name: DocName, description: DocDescr}, function(err, result) {
+        if(err)
+            throw err;
+ 
+        console.log("entry saved");
+        onAdded();
+    });
+
+   myCollection.update({name: DocName}, {$set: {company: {employed: 1, officialName: "promises LTD", barf: "Sometime", 
+       industries: ["data handler", "passionate asynchronous delays"]}}}, {w:1}, function(err) {
+        if(err)
+            throw err;
+        console.log('entry updated');
+        onAdded();
+    });
+}
+ 
+function createConnection(onCreate){
+ 
+    MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+        console.log("connecting to the mongoDB !");
+        if(err)
+            throw err;
+        console.log("connected to the mongoDB !");
+        myCollection = db.collection('test_collection');
+ 
+        onCreate();
+    });
+}
+ /*
+createConnection(function(){
+   console.log("Start mongoDB !");
+   findDocument(function(){            console.log("Find");   });   console.log("Serving never gets here?");
+   app.get('/', function (req, res) {      res.send("The company I found is \""+found+"\"\n<br /> And it specializes in \""+special+"\" <br /> and has barf like "+special2);   });
+   // NTOP uses port 3000 to log usage
+   var server = app.listen(3001, function () {
+   var host = server.address().address;
+   var port = server.address().port;
+//   addDocumentStuff(function(), "promise", "kept promises" {
+   addDocumentStuff(function(){console.log("3 parms");   }, "promise", "kept promises");
+   findDocument(function(){            console.log("Find");   });   console.log("Serving never gets here?");
+   console.log('Example app listening at http://%s:%s', host, port,found);
+   });
+//     addDocument(function(){
+//         simpleUpdateDocument(function(){
+//             fieldUpdateDocument(function(){
+//                 fieldComplexeUpdateDocument(function(){
+//                     findDocument(function(){
+// //                        removeDocument(function(){
+//                             console.log("The end");
+// //                        });
+//                     });
+//                 });
+//             });
+//         });
+//     });
+});
+
+*/
+
+
+
 // Set up Handlebars
-// Create a directory named views and then another named layouts
-// in it
+// Create a directory named views and then another named layouts in it
 // Define main.handlebars as the default layout
 // Create these files in the views directory and define the
 // HTML in them home.handlebars, about.handlebars,
 // 404.handlebars and 500.handlebars
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
- 
 app.engine('handlebars', handlebars.engine);
- 
 app.set('view engine', 'handlebars');
- 
-// Required when using POST to parse encoded data
-// npm install --save body-parser
+// Required when using POST to parse encoded data npm install --save body-parser
 app.use(require('body-parser').urlencoded({extended: true}));
- 
-// Formidable is required to accept file uploads
-// npm install --save formidable
+// Formidable is required to accept file uploads npm install --save formidable
 var formidable = require('formidable');
- 
-// Import credentials which are used for secure cookies
-// Install the cookie middleware
-// npm install --save cookie-parser
+// Import credentials which are used for secure cookies npm install --save cookie-parser
 var credentials = require('./credentials.js');
 app.use(require('cookie-parser')(credentials.cookieSecret));
- 
 // Defines the port to run on
 app.set('port', process.env.PORT || 3002);
- 
-// Create a directory called public and then a directory
-// named img inside of it and put your logo in there
+// Create a directory called public and then a directorynamed img inside of it and put your logo in there
 app.use(express.static(__dirname + '/public'));
- 
-// Define some routes. app.get receives a path and a
-// function and it defines our routes. The path isn't
-// case sensitive and doesn't care about trailing path
-// information.
-// The req object represents the HTTP request and
-// contains the query string, parameters, body, header
-// The res object is the response Express sends
-// when it receives a request
+// Define some routes. app.get receives a path and a function and it defines our routes.
+// The path isn't case sensitive and doesn't care about trailing path information.
+// The req object represents the HTTP request and contains the query string, 
+// parameters, body, header
+// The res object is the response Express sends when it receives a request
 app.get('/', function(req, res){
- 
   // Point at the home.handlebars view
   res.render('home');
 });
  
 // This is an example of middleware It receives a request
 // object, response object and the next function
-// As we look for the correct information to serve it executes
-// and then next() says to continue down the pipeline
+//look for the information to serve,executes and then next() continue down the pipeline
 app.use(function(req, res, next){
   console.log('Looking for URL : ' + req.url);
   next();
 });
- 
 // You can also report and throw errors
 app.get('/junk', function(req, res, next){
   console.log('Tried to access /junk');
   throw new Error('/junk does\'t exist');
 });
- 
 // Catches the error and logs it and then continues
 // down the pipeline
 app.use(function(err, req, res, next){
   console.log('Error : ' + err.message);
   next();
 });
- 
-// If we want /about/contact we'd have to define it
-// before this route
+// If we want /about/contact we'd have to define it before this route
 app.get('/about', function(req, res){
-  // Point at the about.handlebars view
-  // Allow for the test specified in tests-about.js
+  // Point at the about.handlebars view Allow for the test specified in tests-about.js
   res.render('about');
 });
- 
 // Link to contact view
 app.get('/contact', function(req, res){
- 
   // CSRF tokens are generated in cookie and form data and
   // then they are verified when the user posts
   res.render('contact', { csrf: 'CSRF token here' });
