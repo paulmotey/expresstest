@@ -5,6 +5,7 @@
  */
 var express = require('express');
 var app = express();
+//app.use(express.static(path.join(__dirname, 'public')));
 var mongodb = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 
@@ -223,6 +224,11 @@ app.get('/contact', function(req, res){
 // Sent here after the form is processed
 app.get('/thankyou', function(req, res){
   res.render('thankyou');
+});
+
+
+app.get('/carousel', function(req, res){
+  res.render('carousel');
 });
  
 // Receive the contact form data and then redirect to
