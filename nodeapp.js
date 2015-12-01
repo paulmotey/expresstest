@@ -230,6 +230,12 @@ app.get('/thankyou', function(req, res){
 app.get('/carousel', function(req, res){
   res.render('carousel');
 });
+app.get('/html5', function(req, res){
+  res.render('carousel');
+});
+app.get('/webgl_motion_detector', function(req, res){
+  res.render('webgl_motion_detector');
+});
  
 // Receive the contact form data and then redirect to
 // thankyou.handlebars

@@ -1,3 +1,28 @@
 <div class="page-header">
 <h3>Express application about by paulmotey with git repo, node.js</h3>
+<button id="getp">Get Paragraph Width</button>
+<button id="getd">Get Document Width</button>
+<button id="getw">Get Window Width</button>
+<div>&nbsp;</div>
+<p>sasdlkasjdljasljdlJA;SDJLKAJSD;LJLASDJ;lJASDLJL;ASD;lkjaSDLJ;ALSJDLKAJSL;DKJAL;KDJAS;LDJLAKSJD;LKAJSLDKJAL;SKJD;LKAJSDLKJA;LSJDLAKSJd;laJSDLJALSJD;LAJSD;LJALSDJ;lajsdkajsdlajsdljalsdjalsjdlakJSDLJASLDJAL;SJD;LAKJD;lkajsd;ljaslkdjlaksj</p>
+<script>
+function showWidth( ele, w ) {
+  $( "div" ).text( "The width for the " + ele + " is " + w + "px." );
+}
+$( "#getp" ).click(function() {
+  showWidth( "paragraph", $( "p" ).width() );
+});
+$( "#getd" ).click(function() {
+  showWidth( "document", $( document ).width() );
+});
+$("#getw").click(function() {
+  showWidth( "window", $( window ).width() );
+});
+test.innerHTML = "Hello World";
+if (textContent) {
+  test.textContent = "Hello World";
+} else {
+  test.innerText = "Hello World";
+}
+</script>
 </div>
