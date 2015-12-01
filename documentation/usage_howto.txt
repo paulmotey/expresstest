@@ -141,3 +141,6 @@ app.use(express.favicon(__dirname + '/public/favicon.ico'));
 sudo npm install --save serve-favicon
 
 commit
+
+
+gitk is very informative and has all the features in a clear presentation
