@@ -53,37 +53,37 @@ function init() {
 	// add cube with six textures
 	var cubeMaterials = [];
 	var loader = new THREE.TextureLoader();
-	loader.load('webglimages/xpos.png', function(texture) {
+	loader.load('webglimages/xpos2.png', function(texture) {
 		var mat = new THREE.MeshLambertMaterial({
 			map : texture
 		});
 		cubeMaterials.push(mat);
 
-		loader.load('webglimages/xneg.png', function(texture) {
+		loader.load('webglimages/xneg2.png', function(texture) {
 			var mat = new THREE.MeshLambertMaterial({
 				map : texture
 			});
 			cubeMaterials.push(mat);
 
-			loader.load('webglimages/ypos.png', function(texture) {
+			loader.load('webglimages/ypos2.png', function(texture) {
 				var mat = new THREE.MeshLambertMaterial({
 					map : texture
 				});
 				cubeMaterials.push(mat);
 
-				loader.load('webglimages/yneg.png', function(texture) {
+				loader.load('webglimages/yneg2.png', function(texture) {
 					var mat = new THREE.MeshLambertMaterial({
 						map : texture
 					});
 					cubeMaterials.push(mat);
 
-					loader.load('webglimages/zpos.png', function(texture) {
+					loader.load('webglimages/zpos2.png', function(texture) {
 						var mat = new THREE.MeshLambertMaterial({
 							map : texture
 						});
 						cubeMaterials.push(mat);
 
-						loader.load('webglimages/zneg.png', function(texture) {
+						loader.load('webglimages/zneg2.png', function(texture) {
 							var mat = new THREE.MeshLambertMaterial({
 								map : texture
 							});
