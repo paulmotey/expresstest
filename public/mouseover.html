@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jQuery Hover Effect</title>
+<script type='text/javascript' src='webjs/jquery-1.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+	$(".button").hover(function() {
+		$(this).attr("src","images/button_red.png");
+			}, function() {
+		$(this).attr("src","images/button.png");
+	});
+});
+</script>
+</head>
+
+<body>
+<img src="images/button.png" alt="My button" class="button" />
+</body>
+</html>

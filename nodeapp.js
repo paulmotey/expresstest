@@ -231,7 +231,7 @@ app.get('/carousel', function(req, res){
   res.render('carousel');
 });
 app.get('/html5', function(req, res){
-  res.render('carousel');
+  res.render('html5');
 });
 app.get('/webgl_motion_detector', function(req, res){
   res.render('webgl_motion_detector');
